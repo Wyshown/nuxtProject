@@ -1,0 +1,44 @@
+{
+  "name": "WyshownTest",
+  "version": "1.0.0",
+  "description": "Wyshown test project",
+  "author": "Wyshown",
+  "private": true,
+  "config": {
+    "nuxt": {
+      "port": 4000
+    }
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "mint-ui": "^2.2.13",
+    "nuxt": "^1.0.0-rc11",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.21.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "css-loader": "^0.28.11",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.8.3",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.21.0"
+  }
+}
