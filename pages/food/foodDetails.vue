@@ -52,10 +52,12 @@
                 </div>
                 <div class = "divTable">
                     <div class = "divTr"><p class="divTh">碳水化合物</p></div>
-                    <div class = "divTr"><p class="divTh">{{foodDetails.carbohydrate}}</p></div>
+                    <div class = "divTr"><p class="divTh">{{foodDetails.carbohydrate}}克</p></div>
                     <div class = "divTr"><p class="divTh"></p></div>
                 </div>
-                <div style="height: 2.2rem;text-align: center;font-size: 12px;border-bottom: 1px solid #f0f0f0"><div style="padding-top: 0.6rem; height: 1rem;color: #999">更多营养元素</div></div>
+                <router-link :to="{path:'/food/foodDetailsParamList',query:{'foodId':foodDetails.id}}">
+                    <div style="height: 2.2rem;text-align: center;font-size: 12px;border-bottom: 1px solid #f0f0f0"><div style="padding-top: 0.6rem; height: 1rem;color: #999">更多营养元素</div></div>
+                </router-link>
                 <!--GI GL值-->
                 <div style="background: #f0f0f0;height: .6rem;"> </div>
                 <div v-if="foodDetails.gi != '' && foodDetails.gi != 0" class = "divTable"  style="color: #ff5c4b">
