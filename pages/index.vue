@@ -20,7 +20,8 @@
             <div style="padding-left: 0.5rem;">
                 <div class="groupKindName" v-if="foodKind_for.foodKind == 'group'" v-for="forParams in foodKindType_groupArr">
                     <div class="forFoodKindImg">
-                        <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id}}">
+                        <!--sourceType为1 代表从首页列表页进来 sourceType为2 代表从首页查询入口进来-->
+                        <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id,sourceType:1}}">
                             <img style="text-align: center;height: 3.5rem;width: 3.5rem;" :src="forParams.imageUrl">
                         </router-link>
                     </div>
@@ -92,11 +93,6 @@ export default {
           that.foodKindType_groupArr = res.data.foodKindType_group;
           that.foodKindType_brandArr = res.data.foodKindType_brand
           that.foodKindType_restaurantArr = res.data.foodKindType_restaurant;
-          console.log("foodKindArr",that.foodKindArr)
-          console.log("foodKindType_groupArr",that.foodKindType_groupArr)
-          console.log("foodKindType_brandArr",that.foodKindType_brandArr)
-          console.log("foodKindType_restaurantArr",that.foodKindType_restaurantArr)
-
         }
       )
     },
@@ -106,9 +102,6 @@ export default {
       if (this.realDis == 0 ) {
         this.realDis = offsetTop;
       }
-      console.log("this.realDis",this.realDis);
-      console.log("offsetTop",offsetTop)
-      console.log("scrollTop",scrollTop)
       if (scrollTop > this.realDis) {
         this.searchBarFixed = true
         console.log("this.searchBarFixed",this.searchBarFixed)
@@ -117,10 +110,6 @@ export default {
         this.searchBarFixed = false
         console.log("this.searchBarFixed",this.searchBarFixed)
       }
-//      else if (this.realDis > scrollTop ){
-//        this.searchBarFixed = false
-//        console.log("this.searchBarFixed",this.searchBarFixed)
-//      }
     },
 
   },
@@ -132,7 +121,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
     .home_head{
         height: 11.5rem;
         position: relative;
@@ -156,7 +145,7 @@ export default {
     }
     .groupKindName {
         margin-top: 0.5rem;
-        margin-left:1.667rem;
+        margin-left:1.4rem;
         float:left;
         width:5rem;
         height:5rem;
@@ -164,7 +153,7 @@ export default {
     }
     .forFoodKindName {
         margin-top: 0.5rem;
-        margin-left:1.667rem;
+        margin-left:1.4rem;
         float:left;
         width:5rem;
         height:4rem;

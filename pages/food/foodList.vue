@@ -1,13 +1,21 @@
 <template>
 
     <div>
-        <div style="position: fixed;width:100%;height:2.2rem;line-height: 2.2rem; text-align: center;border-bottom: 1px #B3A9BF solid;background: #fff">
-
+        <div :class="sourceType_param == 2 ? 'hanDisPlayNone' : 'hanDisPlayFlex'" style="position: fixed;width:100%;height:2.2rem;line-height: 2.2rem; text-align: center;border-bottom: 1px #B3A9BF solid;background: #fff;top:0;left:0">
             <div style=" height:2.2rem;float: left;width:10%;" @click="$router.back(-1)">
                 <img style="margin-top:0.25rem;text-align:center;  height: 1.5rem" src="../../static/img/ic_back_dark.png" >
             </div>
             <div style="float: left;width:80%;margin-right: 10%;text-align: left">{{queryParams.foodTypeName}}</div>
         </div>
+
+        <div :class="sourceType_param == 2 ? 'hanDisPlayFlex' : 'hanDisPlayNone'" style="position: fixed;width: 100%;background: #ffffff;border-bottom: 1px solid #696363;height:2.2rem;line-height: 2.2rem;top:0;left:0">
+            <div style=" height:2.2rem;float: left;width:10%;" @click="$router.back(-1)">
+                <img style="margin-top:0.25rem;text-align:center;  height: 1.5rem" src="../../static/img/ic_back_dark.png" >
+            </div>
+            <input v-model="foodName_param"  style="padding-left: 8px; margin-top: 0.3rem;outline: none; background: #f0f0f0; height:1.6rem;line-height: 1.4rem;font-size:14px;float: left;width:80%;text-align: left">
+            <div @click = "pushLocalStoreValue(foodName_param)" style="text-align: center;width: 10%;color: red; float: left;" class="iconfont icon-sousuo"></div>
+        </div>
+
         <div style="position: fixed;width:100%;top:2.2rem; border-bottom: 1px #B3A9BF solid;height:  1.6rem;line-height: 1.6rem;background: #fff">
             <!--营养素排行-->
             <div @click="shanglaOrxiala = !shanglaOrxiala"  style="float: left;width:10%;line-height: 1.6rem;font-size: 14px;width: 30%;  " >
@@ -26,27 +34,28 @@
                     {{nutrientElement.nutrientNme}}
                 </li>
             </ul>
-        <div style="padding-top: 3.8rem  ">
+        <div style="padding-top: 3.8rem;">
             <div v-for = "foodList in foodListArr" style="  height: 3rem;background: #f0f0f0;border-bottom: 1px solid #e5e5e5;">
+                <!-- 跳转到食物的详情页面-->
+                <router-link :to="{path:'/food/fooddetails',query:{'foodId':foodList.id,'foodName':foodList.foodCnNam}}">
+                    <div style="clear:both;width: 16%;float: left;height: 3rem;text-align: center;">
+                        <img style="margin-top: 0.3rem; text-align: center;height: 2.4rem;width: 2.4rem;border-radius:25px" :src="foodList.thumbImageUrl">
+                    </div>
+                    <div style="float: left;width: 74%; height: 3rem;padding-left: 5px;">
+                        <div style="height: 1.5rem;padding-top: 4px">
+                            <i style="font-size: 14px;white-space: nowrap;color: black;">{{foodList.foodCnName}}</i>
+                        </div>
+                        <div style="height: 1.5rem;padding-bottom: 4px">
+                            <i style="font-size: 12px;color: #da3434;">{{foodList.calory | numToFloor}}</i><i style="font-size: 12px;color: #1f1b1b">&nbsp;千卡/100克</i>
+                        </div>
+                    </div>
+                    <div style="width: 10%;float: left;height: 3rem;text-align: center;">
+                        <img v-if = "foodList.healthLight == 1" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_green.png">
+                        <img v-if = "foodList.healthLight == 2" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_yellow.png">
+                        <img v-if = "foodList.healthLight == 3" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_red.png">
+                    </div>
+                </router-link>
 
-                <div style="clear:both;width: 16%;float: left;height: 3rem;text-align: center;">
-                    <!--<router-link>-->
-                    <img style="margin-top: 0.3rem; text-align: center;height: 2.4rem;width: 2.4rem;border-radius:25px" :src="foodList.thumbImageUrl">
-                    <!--</router-link>-->
-                </div>
-                <div style="float: left;width: 74%; height: 3rem;padding-left: 5px;">
-                    <div style="height: 1.5rem;padding-top: 4px">
-                        <i style="font-size: 14px;">{{foodList.foodCnName}}</i>
-                    </div>
-                    <div style="height: 1.5rem;padding-bottom: 4px">
-                        <i style="font-size: 14px">{{foodList.calory}}/100克</i>
-                    </div>
-                </div>
-                <div style="width: 10%;float: left;height: 3rem;text-align: center;">
-                    <img v-if = "foodList.healthLight == 1" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_green.png">
-                    <img v-if = "foodList.healthLight == 2" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_yellow.png">
-                    <img v-if = "foodList.healthLight == 3" style="margin-top: 1.2rem; height: 0.6rem;width: 0.6rem;" src="~/static/img/ic_food_light_red.png">
-                </div>
             </div>
         </div>
     </div>
@@ -59,7 +68,18 @@
     export default {
       data() {
         return {
+          // 自动加载的距离 默认为一条数据的行高
+          autoLoadingPosition:"3",
+          // 搜索时的加载项目
+          queryFoodParam:"",
+          localStorageValue:[],
+
+          // 默认加载的页码和行数
+          page_param:1,
+          pagenum_param:20,
+
           foodListArr:[],
+          sourceType_param:"1",
           nutrientNme_param:"常见",
           nutrientCode_param:"",
 
@@ -117,43 +137,66 @@
       mounted () {
         console.log(this.nutrientSort)
         this.queryParams = this.$route.query
+        console.log("this.queryParams: ",this.queryParams)
         this.foodKindId_param = this.queryParams.foodKindId;
+        this.foodName_param = this.queryParams.foodName;
+        console.log("this.foodName_param: ", this.foodName_param)
+
+        this.sourceType_param = this.queryParams.sourceType;
+        console.log("sourceType_param",this.sourceType_param)
+
+        if (localStorage.getItem("locaQueryHistoryList")) {
+          this.localStorageValue =  localStorage.getItem("locaQueryHistoryList").split(",");
+        }
 
         this.findAllFoodByQuery();
-
-
-
         console.log("this.foodKindId_param,",this.foodKindId_param)
 
-
-//        window.addEventListener('scroll', this.handleScroll)
-//        if(process.browser){
-//          console.log("-----process.browser--------")
-//        }
+        window.addEventListener('scroll', this.handleScroll);
       },
       methods: {
-        handleScroll () {
-          const that = this;
-          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-          var offsetTop = document.querySelector('#searchBar').offsetTop
-          if (scrollTop > offsetTop) {
-            that.searchBarFixed = true
-          } else {
-            that.searchBarFixed = false
+        pushLocalStoreValue(queryVal){
+          var that = this;
+
+          that.queryFoodParam = that.foodName_param;
+
+          that.queryFoodParam = queryVal;
+          console.log("queryVal: ",queryVal)
+          if (queryVal == "") {
+            return
           }
+
+          // 判断是否包含 如果无测添加 证明无元素
+          var valIndex =  that.localStorageValue.indexOf(queryVal);
+          if (valIndex == -1) {
+            that.localStorageValue.unshift(queryVal);
+            localStorage.setItem("locaQueryHistoryList",that.localStorageValue);
+
+          } else {
+            that.localStorageValue.splice(valIndex,1)
+            // 把元素添加为每一个
+            that.localStorageValue.unshift(queryVal);
+            localStorage.removeItem("locaQueryHistoryList");
+            localStorage.setItem("locaQueryHistoryList",that.localStorageValue);
+          }
+          console.log("locaQueryHistoryList",that.localStorageValue)
+          console.log("queryFoodParam",that.queryFoodParam)
+
+          that.findAllFoodByQuery();
+
         },
         findAllFoodByQuery() {
           const that = this;
 
-          console.log('-----------findAllFoodBy111Query-----------',that.foodKindId_param,this.queryParams.foodKindId)
+          console.log('-----------findAllFoodBy111Query-----111------',that.foodKindId_param,this.queryParams.foodKindId)
 
           const params = {
-            "page":"1",
-            "pagenum":"20",
+            "page":that.page_param,
+            "pagenum": that.pagenum_param,
             "foodKindId": that.foodKindId_param,
 //            "foodType": that.foodType_param,
 //            "foodId": that.foodId_param,
-//            "foodName": that.foodName_param,
+            "foodName": that.foodName_param,
             "orderName":that.orderName_param,
             "orderSort": that.orderSort_param
           }
@@ -204,12 +247,52 @@
           console.log("排序字段",that.orderName_param);
           that.findAllFoodByQuery();
 
+        },
+        handleScroll () {
+          var that = this;
+          // 当前的距离
+          var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+          // 目前设定的自动加载的高度
+          var offsetTop = that.page_param * that.pagenum_param * that.autoLoadingPosition * 5;
+
+          console.log("scrollTop: ",scrollTop,"offsetTop: ",offsetTop);
+
+          if (this.realDis == 0 ) {
+            this.realDis = offsetTop;
+          }
+          if (scrollTop > offsetTop) {
+            // 自动加载的高度 大于 当前距离时 页码加1 并出发重新加载的方法
+            that.page_param = that.page_param + 1;
+
+            const params = {
+              "page":that.page_param,
+              "pagenum": that.pagenum_param,
+              "foodKindId": that.foodKindId_param,
+//            "foodType": that.foodType_param,
+//            "foodId": that.foodId_param,
+              "foodName": that.foodName_param,
+              "orderName":that.orderName_param,
+              "orderSort": that.orderSort_param
+            }
+
+            console.log("that.queryParams",that.queryParams);
+            const url = 'food/findAllFoodByQuery';
+
+            this.$apiAjax.post(url,params,(res)=>{
+              const that = this;
+              that.foodListArr =  that.foodListArr.concat(res.data.data);
+            })
+          }
         }
-
-
       },
       destroyed () {
         window.removeEventListener('scroll', this.handleScroll)
+      },
+      filters: {
+        numToFloor: function (value) {
+          if (!value) return ''
+          return Math.floor(value);
+        }
       }
     }
 </script>

@@ -5,6 +5,7 @@ Vue.use(Router)
 
 const _7da02162 = () => import('../pages/search/search.vue' /* webpackChunkName: "pages/search/search" */).then(m => m.default || m)
 const _1448dd0d = () => import('../pages/food/foodList.vue' /* webpackChunkName: "pages/food/foodList" */).then(m => m.default || m)
+const _114277a3 = () => import('../pages/food/foodDetails.vue' /* webpackChunkName: "pages/food/foodDetails" */).then(m => m.default || m)
 const _7c7202b2 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
 
 
@@ -63,6 +64,11 @@ export function createRouter () {
 			path: "/food/foodList",
 			component: _1448dd0d,
 			name: "food-foodList"
+		},
+		{
+			path: "/food/foodDetails",
+			component: _114277a3,
+			name: "food-foodDetails"
 		},
 		{
 			path: "/",

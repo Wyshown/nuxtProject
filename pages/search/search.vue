@@ -1,5 +1,5 @@
 <template>
-    <div style="overflow-y:auto;clear: both">
+    <div class="search" style="overflow-y:auto;clear: both">
         <!--返回 查询列表-->
         <div style="width:100%;height:2.2rem;line-height: 2.2rem; text-align: center;border-bottom: 1px #B3A9BF solid;background: #fff">
 
@@ -17,9 +17,9 @@
                 <div v-if="localStorageValue.length" >
                     <div v-for = "localValue in localStorageValue" >
                         <div class="iconfont icon-shizhong" style="float: left;width: 10%;" ></div>
-                        <div style="float: left;width: 80%;text-align: left;border-bottom: 1px solid #ccc;font-size: 14px;">{{localValue}}</div>
+                        <div  @click="pushLocalStoreValue(localValue)" style="float: left;width: 80%;text-align: left;border-bottom: 1px solid #ccc;font-size: 14px;">{{localValue}}</div>
 
-                        <div class="iconfont icon-gengduo" style="float: left;width: 10%;border-bottom: 1px solid #ccc" > </div>
+                        <div  @click="pushLocalStoreValue(localValue)"  class="iconfont icon-gengduo" style="float: left;width: 10%;border-bottom: 1px solid #ccc" > </div>
                     </div>
                 </div>
                 <div v-if="localStorageValue.length"  @click="clearLocalStoreValue" style="border-bottom: 1px solid #ccc;font-size: 14px;"><i class="iconfont icon-shanchu"></i><i style="font-style: normal;color: #7f828b">&nbsp;清空历史记录</i></div>
@@ -58,12 +58,12 @@
       if (localStorage.getItem("locaQueryHistoryList")) {
         this.localStorageValue =  localStorage.getItem("locaQueryHistoryList").split(",");
       }
-//      this.pushLocalStoreValue();
     },
     methods: {
       // 添加查询的历史日志,并跳转到查询的二级页面
       pushLocalStoreValue(queryVal){
         var that = this;
+        that.queryFoodParam = queryVal;
         console.log("queryVal: ",queryVal)
         if (queryVal == "") {
           return
@@ -83,6 +83,16 @@
           localStorage.setItem("locaQueryHistoryList",that.localStorageValue);
         }
         console.log("locaQueryHistoryList",that.localStorageValue)
+        console.log("queryFoodParam",that.queryFoodParam)
+
+        that.$router.push({
+          path: '/food/foodList',
+          query: {
+            sourceType: 2,
+            foodName: that.queryFoodParam
+          }
+        })
+
       },
       /*清空所有的查询历史记录*/
       clearLocalStoreValue(){
