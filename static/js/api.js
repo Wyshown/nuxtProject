@@ -1,6 +1,11 @@
 import axios from 'axios'
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8;sessionid=hanwuqia'
-const rootUrl= 'http://localhost:3000/api/'
+
+// 本地环境接口
+// const rootUrl= 'http://localhost:3001/api/'
+
+// 正式环境接口
+const rootUrl= 'http://101.37.125.239:30080/ckd/api/'
 
 axios.defaults.timeout = 5000
 axios.defaults.baseUrl = rootUrl
