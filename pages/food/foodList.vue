@@ -1,7 +1,7 @@
 <template>
 
     <div>
-        <div :class="sourceType_param == 2 ? 'hanDisPlayNone' : 'hanDisPlayFlex'" style="position: fixed;width:100%;height:2.2rem;line-height: 2.2rem; text-align: center;border-bottom: 1px #B3A9BF solid;background: #fff;top:0;left:0">
+        <div :class="sourceType_param == 1 ? 'hanDisPlayFlex' : 'hanDisPlayNone'" style="position: fixed;width:100%;height:2.2rem;line-height: 2.2rem; text-align: center;border-bottom: 1px #B3A9BF solid;background: #fff;top:0;left:0">
             <div style=" height:2.2rem;float: left;width:10%;" @click="$router.back(-1)">
                 <img style="margin-top:0.25rem;text-align:center;  height: 1.5rem" src="../../static/img/ic_back_dark.png" >
             </div>
@@ -35,18 +35,19 @@
                 </li>
             </ul>
         <div style="padding-top: 3.8rem;">
-            <div v-for = "foodList in foodListArr" style="  height: 3rem;background: #f0f0f0;border-bottom: 1px solid #e5e5e5;">
+            <div v-for = "foodList in foodListArr" style="  height: 3.4rem;background: #f0f0f0;border-bottom: 1px solid #e5e5e5;">
                 <!-- 跳转到食物的详情页面-->
                 <router-link :to="{path:'/food/fooddetails',query:{'foodId':foodList.id,'foodName':foodList.foodCnNam}}">
                     <div style="clear:both;width: 16%;float: left;height: 3rem;text-align: center;">
-                        <img style="margin-top: 0.3rem; text-align: center;height: 2.4rem;width: 2.4rem;border-radius:25px" :src="foodList.thumbImageUrl">
+                        <img v-if = "foodList.thumbImageUrl != ''" style="margin-top: 0.5rem; text-align: center;height: 2.4rem;width: 2.4rem;border-radius:25px" :src="foodList.thumbImageUrl">
+                        <img v-else = "foodList.thumbImageUrl == ''" style="margin-top: 0.5rem; text-align: center;height: 2.4rem;width: 2.4rem;border-radius:25px" src="~/static/img/moren.png">
                     </div>
                     <div style="float: left;width: 74%; height: 3rem;padding-left: 5px;">
-                        <div style="height: 1.5rem;padding-top: 4px">
+                        <div style="height: 1.5rem;padding-top: 7px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
                             <i style="font-size: 14px;white-space: nowrap;color: black;">{{foodList.foodCnName}}</i>
                         </div>
-                        <div style="height: 1.5rem;padding-bottom: 4px">
-                            <i style="font-size: 12px;color: #da3434;">{{foodList.calory | numToFloor}}</i><i style="font-size: 12px;color: #1f1b1b">&nbsp;千卡/100克</i>
+                        <div style="margin-top: 0.2rem;">
+                            <i style="font-size: 12px;color: #da3434;font-weight: 500;">{{foodList.calory | numToFloor}}</i><i style="font-size: 12px;color: #1f1b1b">&nbsp;千卡/100克</i>
                         </div>
                     </div>
                     <div style="width: 10%;float: left;height: 3rem;text-align: center;">

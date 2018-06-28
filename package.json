@@ -6,13 +6,14 @@
   "private": true,
   "config": {
     "nuxt": {
+      "host": "0.0.0.0",
       "port": 4000
     }
   },
   "scripts": {
     "dev": "nuxt",
     "start": "nuxt start -p $PORT",
-    "build": "nuxt build && PORT=8202 npm start",
+    "build": "nuxt build && PORT='8202' npm start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"

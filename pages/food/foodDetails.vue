@@ -9,7 +9,8 @@
         </div>
         <div style = "margin-top: 2.2rem;height: 4.4rem;">
             <div style="clear:both;width: 16%;float: left;height: 3rem;text-align: center;margin-top: 0.7rem;">
-                <img style="text-align: center;height: 3rem;width: 3rem;border-radius:25px;border:1px solid white;"  :src="foodDetails.thumbImageUrl">
+                <img v-if = "foodDetails.thumbImageUrl != ''" style="text-align: center;height: 3rem;width: 3rem;border-radius:25px;border:1px solid white;"  :src="foodDetails.thumbImageUrl">
+                <img v-else = "foodDetails.thumbImageUrl == ''" style="text-align: center;height: 3rem;width: 3rem;border-radius:25px;border:1px solid white;"  src="~/static/img/moren.png">
             </div>
             <div style="float: left;width: 74%; height: 3rem;margin-top: 0.7rem;padding-left: 10px;">
                 <div style="height: 1.5rem;padding-top: 4px">

@@ -33,7 +33,7 @@
 
             <div class="forFoodKindName" v-if="foodKind_for.foodKind == 'brand'" v-for="forParams in foodKindType_brandArr">
                 <div class="forFoodKindImg">
-                    <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id}}">
+                    <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id,sourceType:1}}">
                         <img style="text-align: center;height: 2rem;width: 3.5rem;" :src="forParams.imageUrl">
                     </router-link>
                 </div>
@@ -43,7 +43,7 @@
             </div>
             <div class="forFoodKindName" v-if="foodKind_for.foodKind == 'restaurant'" v-for="forParams in foodKindType_restaurantArr">
                 <div class="forFoodKindImg">
-                    <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id}}">
+                    <router-link :to="{path:'/food/foodList',query:{foodTypeName:forParams.foodKindName,foodKindId:forParams.id,sourceType:1}}">
                         <img style="text-align: center;height: 2rem;width: 3.5rem;" :src="forParams.imageUrl">
                     </router-link>
                 </div>
