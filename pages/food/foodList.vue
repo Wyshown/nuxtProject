@@ -297,7 +297,7 @@
       }
     }
 </script>
-<style>
+<style scoped>
     @font-face {
         font-family: 'iconfont';  /* project id 571611 */
         src: url('//at.alicdn.com/t/font_571611_r28yawoboo0i19k9.eot');

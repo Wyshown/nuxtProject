@@ -168,7 +168,7 @@
     }
   }
 </script>
-<style>
+<style scoped>
     .divTable{
         height: 2.2rem;
         text-align: center;

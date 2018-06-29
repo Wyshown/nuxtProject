@@ -6,6 +6,7 @@
             <div  :class="searchBarFixed == true ? 'isFixed' :''" id="searchBar" >
                 <router-link :to = "{path:'search/search'}">
                     <input placeholder="请输入食物名称" :class="searchBarFixed == true ? 'inputClassFixed' :'inputClass'">
+                    <!--<p>请输入食物名称</p>-->
                 </router-link>
                 <i class="iconfont icon-search" :class="searchBarFixed == true ? 'iClassFixed' :'iClass'"></i>
             </div>

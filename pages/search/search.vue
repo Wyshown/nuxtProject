@@ -44,6 +44,15 @@
   Vue.prototype.$apiAjax = apiAjax;
 
   export default {
+    head(){
+      return{
+        meta:[
+          {name:"description", content: ""},
+          {name:"keywords", content: "213131"},
+        ],
+        title:""
+      }
+    },
     data(){
       return{
         queryFoodParam:"",
@@ -105,7 +114,7 @@
   }
 
 </script>
-<style>
+<style scoped>
 
     @font-face {font-family: "iconfont";
         src: url('//at.alicdn.com/t/font_571611_mu4oppn8qqag7gb9.eot?t=1526980065558'); /* IE9*/
